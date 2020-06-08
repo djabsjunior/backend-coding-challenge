@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendCodingChallenge", "BackendCodingChallenge\BackendCodingChallenge.csproj", "{BF626474-9AF3-4C65-B68C-EDE7DAE9F559}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF626474-9AF3-4C65-B68C-EDE7DAE9F559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF626474-9AF3-4C65-B68C-EDE7DAE9F559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF626474-9AF3-4C65-B68C-EDE7DAE9F559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF626474-9AF3-4C65-B68C-EDE7DAE9F559}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
