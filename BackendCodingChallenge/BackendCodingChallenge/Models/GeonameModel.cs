@@ -65,6 +65,6 @@ namespace BackendCodingChallenge.Models
     public partial class AdministrationCodes
     {
         [JsonProperty("ISO3166_2")]
-        public string AdministrationCode { get; set; }
+        public string ProvinceStateCode { get; set; }
     }
 }

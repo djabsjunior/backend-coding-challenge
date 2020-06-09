@@ -58,16 +58,18 @@ namespace BackendCodingChallenge.Controllers
 
             var geonameItems = GetGeonames(req);
 
-            foreach (var item in geonameItems.Geonames)
+            foreach (var city in geonameItems.Geonames)
             {
-                string[] cityNameArray = { item.Name, item.AdministrationCode, item.CountryCode };
+                string[] cityNameArray = { city.Name, city.AdministrationCodes.ProvinceStateCode, city.CountryCode };
+                var cityCoordinateDistance = GetCoordinateDistance(reqLatitude, reqLongitude, double.Parse(city.Latitude), double.Parse(city.Longitude));
+                var cityNameLevenshteinDistance = LevenshteinDistance(req, city.Name);
 
                 suggestionList.Add(new Suggestion
                 {
-                        Latitude = item.Latitude,
-                        Longitude = item.Longitude,
+                        Latitude = city.Latitude,
+                        Longitude = city.Longitude,
                         Name = string.Join(", ", cityNameArray),
-                        Score = 0
+                        Score = GetScore(cityCoordinateDistance, cityNameLevenshteinDistance)
                 });
             }
 
@@ -108,9 +110,15 @@ namespace BackendCodingChallenge.Controllers
             return geonameItems;
         }
 
-        private double GetScore()
+        /// <summary>
+        /// Algorithm to compute score based on GeoCoordinate and Levenshtein distances
+        /// </summary>
+        /// <param name="coordinateDistance"></param>
+        /// <param name="LevenshteinDistance"></param>
+        /// <returns></returns>
+        private double GetScore(double coordinateDistance, double LevenshteinDistance)
         {
-            return 0;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -126,7 +134,7 @@ namespace BackendCodingChallenge.Controllers
             var requestCoordinate = new GeoCoordinate(reqLatitude, reqLongitude);
             var cityCoordinate = new GeoCoordinate(cityLatitude, cityLongitude);
 
-            return requestCoordinate.GetDistanceTo(cityCoordinate);
+            return requestCoordinate.GetDistanceTo(cityCoordinate) / 1000.0;
         }
 
         /// <summary>
