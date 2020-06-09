@@ -1,8 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "2OQYcMlCJ/XgYor9/HLE0BCjJhyfG4fjkze4GpUrJuU6cGZv/uZiDplj0714TpfbVDZS4AC5bxaKqyif1hXhvA==",
+  "dgSpecHash": "LTzgpGJMdQ/ahUF3DsVR/OaBxjnOHDOglTcQtZ48JV3HtsVkT62to2lohksuIjZV2mQv6c3s44NTEXUJ+Xas9g==",
   "success": true,
   "projectFilePath": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/BackendCodingChallenge.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "/Users/JB/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/Users/JB/.nuget/packages/system.device.location.portable/1.0.0/system.device.location.portable.1.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Device.Location.Portable 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Device.Location.Portable",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
