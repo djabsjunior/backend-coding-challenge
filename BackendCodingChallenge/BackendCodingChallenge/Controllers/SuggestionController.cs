@@ -15,22 +15,10 @@ namespace BackendCodingChallenge.Controllers
     [Route("/suggestions")]
     public class SuggestionController : Controller
     {
-        private static readonly SuggestionModel _suggestion = new SuggestionModel()
-        {
-            Suggestions = new List<Suggestion>()
-            {
-                new Suggestion() {Name= "London, ON, Canada", Latitude= "42.98339", Longitude="-81.23304", Score= 0.9 },
-                new Suggestion(){ Name= "London, OH, USA", Latitude= "39.88645", Longitude="-83.44825", Score= 0.5 }
-            }
-        };
-
         [HttpGet]
         public IActionResult Get(string q, string latitude, string longitude)
         {
-            if (string.IsNullOrWhiteSpace(q))
-            {
-                return Ok(new SuggestionModel());
-            }
+            var suggestionModel = new SuggestionModel();
 
             if (string.IsNullOrWhiteSpace(latitude))
             {
@@ -47,9 +35,9 @@ namespace BackendCodingChallenge.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, "Longitude and Latitude values must be numbers.");
             }
 
-            var suggestions = GetSuggestions(q, double.Parse(latitude), double.Parse(longitude));
+            suggestionModel.Suggestions = GetSuggestions(q, double.Parse(latitude), double.Parse(longitude));
 
-            return Ok(suggestions);
+            return Ok(suggestionModel);
         }
 
         /// <summary>
@@ -59,16 +47,31 @@ namespace BackendCodingChallenge.Controllers
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        private SuggestionModel GetSuggestions(string req, double latitude, double longitude)
+        private List<Suggestion> GetSuggestions(string req, double reqLatitude, double reqLongitude)
         {
+            var suggestionList = new List<Suggestion>();
+
+            if (string.IsNullOrWhiteSpace(req))
+            {
+                return suggestionList;
+            }
+
             var geonameItems = GetGeonames(req);
 
             foreach (var item in geonameItems.Geonames)
             {
+                string[] cityNameArray = { item.Name, item.AdministrationCode, item.CountryCode };
 
+                suggestionList.Add(new Suggestion
+                {
+                        Latitude = item.Latitude,
+                        Longitude = item.Longitude,
+                        Name = string.Join(", ", cityNameArray),
+                        Score = 0
+                });
             }
 
-            return new SuggestionModel();
+            return suggestionList;
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace BackendCodingChallenge.Controllers
         }
 
         /// <summary>
-        /// Levenshtein distance algorithm to calculate distance between the request string and the current city name.
+        /// Levenshtein distance algorithm to compute distance between the request string and the current city name.
         /// Reference: https://en.wikipedia.org/wiki/Levenshtein_distance, https://www.dotnetperls.com/levenshtein
         /// </summary>
         /// <param name="req"></param>
