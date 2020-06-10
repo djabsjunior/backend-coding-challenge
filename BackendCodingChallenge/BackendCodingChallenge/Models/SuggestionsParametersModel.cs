@@ -2,7 +2,7 @@
 
 namespace BackendCodingChallenge.Models
 {
-    public class QueryParametersModel
+    public class SuggestionsParametersModel
     {
         [BindRequired]
         public string Q { get; set; }

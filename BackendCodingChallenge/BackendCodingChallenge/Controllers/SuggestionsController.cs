@@ -16,11 +16,11 @@ namespace BackendCodingChallenge.Controllers
     public class SuggestionsController : Controller
     {
         [HttpGet]
-        public IActionResult Get([FromQuery]QueryParametersModel parameters)
+        public IActionResult Get([FromQuery] SuggestionsParametersModel parameters)
         {
             var suggestionModel = new SuggestionsModel();
 
-            if (!QueryParametersModelIsValid(parameters))
+            if (!SuggestionsParametersModelIsValid(parameters))
             {
                 return StatusCode(StatusCodes.Status400BadRequest, "Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.");
             }
@@ -35,7 +35,7 @@ namespace BackendCodingChallenge.Controllers
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private bool QueryParametersModelIsValid(QueryParametersModel parameters)
+        private bool SuggestionsParametersModelIsValid(SuggestionsParametersModel parameters)
         {
             parameters.Latitude ??= "0";
             parameters.Longitude ??= "0";
@@ -52,7 +52,7 @@ namespace BackendCodingChallenge.Controllers
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        private List<Suggestion> GetSuggestions(QueryParametersModel parameters)
+        private List<Suggestion> GetSuggestions(SuggestionsParametersModel parameters)
         {
             var suggestionList = new List<Suggestion>();
 
@@ -61,24 +61,23 @@ namespace BackendCodingChallenge.Controllers
                 return suggestionList;
             }
 
-            var geonameItems = GetGeonames(parameters.Q);
+            var citiesModel = GetCities(parameters.Q);
+            var citiesScores = GetCitiesScores(citiesModel, parameters);
 
-            foreach (var city in geonameItems.Geonames)
+            foreach (var city in citiesModel.Cities.Where(c => citiesScores.Exists(cs => cs.Key == c.CityId)))
             {
                 string[] cityNameArray = { city.Name, city.AdministrationCodes.ProvinceStateCode, city.CountryCode };
-                var cityCoordinateDistance = GetCoordinateDistance(double.Parse(parameters.Latitude), double.Parse(parameters.Longitude), double.Parse(city.Latitude), double.Parse(city.Longitude));
-                var cityNameLevenshteinDistance = LevenshteinDistance(parameters.Q, city.Name);
 
                 suggestionList.Add(new Suggestion
                 {
                         Latitude = city.Latitude,
                         Longitude = city.Longitude,
                         Name = string.Join(", ", cityNameArray),
-                        Score = GetScore(cityCoordinateDistance, cityNameLevenshteinDistance)
+                        Score = citiesScores.FirstOrDefault(cs => cs.Key == city.CityId).Value
                 });
             }
 
-            return suggestionList;
+            return suggestionList.OrderByDescending(s => s.Score).ToList();
         }
 
         /// <summary>
@@ -86,13 +85,13 @@ namespace BackendCodingChallenge.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        private GeonamesModel GetGeonames(string req)
+        private CitiesModel GetCities(string req)
         {
             var geonamesRequestUri = string.Format(@"http://api.geonames.org/searchJSON?name_startsWith={0}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma", req);
             var geonamesWebReq = (HttpWebRequest)WebRequest.Create(geonamesRequestUri);
 
             geonamesWebReq.Method = "GET";
-            GeonamesModel geonameItems;
+            CitiesModel cities;
 
             try
             {
@@ -105,29 +104,18 @@ namespace BackendCodingChallenge.Controllers
                     jsonString = reader.ReadToEnd();
                 }
 
-                geonameItems = JsonConvert.DeserializeObject<GeonamesModel>(jsonString);
+                cities = JsonConvert.DeserializeObject<CitiesModel>(jsonString);
             }
             catch (Exception ex)
             {
                 throw new Exception("An error occured when calling api/geonames, exception detail:" + ex);
             }
 
-            return geonameItems;
+            return cities;
         }
 
         /// <summary>
-        /// Algorithm to compute score based on GeoCoordinate and Levenshtein distances
-        /// </summary>
-        /// <param name="coordinateDistance"></param>
-        /// <param name="LevenshteinDistance"></param>
-        /// <returns></returns>
-        private double GetScore(double coordinateDistance, double LevenshteinDistance)
-        {
-            return 0;
-        }
-
-        /// <summary>
-        /// Compute the distance between the request GeoCoordinate and the current city
+        /// Compute the distance(km) between the request GeoCoordinate and the current city
         /// </summary>
         /// <param name="reqLatitude"></param>
         /// <param name="reqLongitude"></param>
@@ -139,7 +127,7 @@ namespace BackendCodingChallenge.Controllers
             var requestCoordinate = new GeoCoordinate(reqLatitude, reqLongitude);
             var cityCoordinate = new GeoCoordinate(cityLatitude, cityLongitude);
 
-            return requestCoordinate.GetDistanceTo(cityCoordinate) / 1000.0;
+            return requestCoordinate.GetDistanceTo(cityCoordinate) / 1000;
         }
 
         /// <summary>
@@ -149,40 +137,35 @@ namespace BackendCodingChallenge.Controllers
         /// <param name="req"></param>
         /// <param name="cityName"></param>
         /// <returns></returns>
-        private int LevenshteinDistance(string req, string cityName)
+        private int GetLevenshteinDistance(string req, string cityName)
         {
-            int reqLength = req.Length;
-            int cityNameLength = cityName.Length;
+            var reqLength = req.Length;
+            var cityNameLength = cityName.Length;
             int[,] d = new int[reqLength + 1, cityNameLength + 1];
 
             // Step 1
-            if (reqLength == 0)
+            if (reqLength == 0 || cityNameLength == 0)
             {
-                return cityNameLength;
-            }
-
-            if (cityNameLength == 0)
-            {
-                return reqLength;
+                return Math.Min(cityNameLength, reqLength);
             }
 
             // Step 2
-            for (int i = 0; i <= reqLength; d[i, 0] = i++)
+            for (var i = 0; i <= reqLength; d[i, 0] = i++)
             {
             }
 
-            for (int j = 0; j <= cityNameLength; d[0, j] = j++)
+            for (var j = 0; j <= cityNameLength; d[0, j] = j++)
             {
             }
 
             // Step 3
-            for (int i = 1; i <= reqLength; i++)
+            for (var i = 1; i <= reqLength; i++)
             {
                 //Step 4
-                for (int j = 1; j <= cityNameLength; j++)
+                for (var j = 1; j <= cityNameLength; j++)
                 {
                     // Step 5
-                    int cost = (cityName[j - 1] == req[i - 1]) ? 0 : 1;
+                    var cost = (cityName[j - 1] == req[i - 1]) ? 0 : 1;
 
                     // Step 6
                     d[i, j] = Math.Min(
@@ -192,6 +175,54 @@ namespace BackendCodingChallenge.Controllers
             }
             // Step 7
             return d[reqLength, cityNameLength];
+        }
+
+        /// <summary>
+        /// Returns the score between 0 and 0.5 using the BBF algorithm
+        /// Ref: https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        private List<KeyValuePair<int, double>> GetCitiesScores(CitiesModel citiesModel, SuggestionsParametersModel parametersModel)
+        {
+            var citiesGeoCoordDistances = citiesModel.Cities.Select(city => new KeyValuePair<int, double>(city.CityId, GetCoordinateDistance(double.Parse(parametersModel.Latitude), double.Parse(parametersModel.Longitude), double.Parse(city.Latitude), double.Parse(city.Longitude)))).OrderBy(c => c.Value).ToList();
+            var citiesNamesDistances = citiesModel.Cities.Select(city => new KeyValuePair<int, double>(city.CityId, GetLevenshteinDistance(parametersModel.Q, city.Name))).OrderBy(c => c.Value).ToList();
+            var citiesScores = new List<KeyValuePair<int, double>>();
+
+            if(string.Equals(parametersModel.Latitude,"0") && string.Equals(parametersModel.Longitude, "0"))
+            {
+                return GetScores(citiesNamesDistances, 15, 1);
+            }
+
+            var coordScores = GetScores(citiesGeoCoordDistances, 1000, 2);
+            var namesScores = GetScores(citiesNamesDistances, 15, 2);
+
+            foreach (var item in coordScores)
+            {
+                citiesScores.Add(new KeyValuePair<int, double>(item.Key, Math.Round(item.Value + namesScores.FirstOrDefault(n => n.Key == item.Key).Value, 1)));
+            }
+
+            return citiesScores;
+        }
+
+        /// <summary>
+        /// Algorithm to calculate scores based on a  list of distances, a divisor and a base value.
+        /// </summary>
+        /// <param name="citiesDistances"></param>
+        /// <param name="divisor"></param>
+        /// <param name="algoBase"></param>
+        /// <returns></returns>
+        private List<KeyValuePair<int, double>> GetScores(List<KeyValuePair<int, double>> citiesDistances, int divisor, int algoBase)
+        {
+            var scores = new List<KeyValuePair<int, double>>();
+
+            for (int i = 0; i < citiesDistances.Count; i++)
+            {
+                var score = Math.Exp(-(citiesDistances[i].Value / divisor)) / algoBase;
+                scores.Add(new KeyValuePair<int, double>(citiesDistances[i].Key, algoBase == 1 ? Math.Round(score,1) : score));
+            }
+
+            return scores;
         }
     }
 }

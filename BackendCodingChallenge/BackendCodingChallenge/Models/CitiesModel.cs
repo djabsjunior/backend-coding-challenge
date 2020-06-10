@@ -1,17 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BackendCodingChallenge.Models
 {
-    public partial class GeonamesModel
+    public partial class CitiesModel
     {
         [JsonProperty("totalResultsCount")]
         public int TotalResultsCount { get; set; }
 
         [JsonProperty("geonames")]
-        public Geoname[] Geonames { get; set; }
+        public IList<City> Cities { get; set; }
     }
 
-    public partial class Geoname
+    public partial class City
     {
         [JsonProperty("adminCode1")]
         public string AdministrationCode { get; set; }
@@ -20,7 +21,7 @@ namespace BackendCodingChallenge.Models
         public string Longitude { get; set; }
 
         [JsonProperty("geonameId")]
-        public int GeoNameId { get; set; }
+        public int CityId { get; set; }
 
         [JsonProperty("toponymName")]
         public string ToponymName { get; set; }
