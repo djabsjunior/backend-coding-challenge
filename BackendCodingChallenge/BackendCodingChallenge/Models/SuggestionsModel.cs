@@ -4,7 +4,7 @@ namespace BackendCodingChallenge.Models
 {
     public partial class SuggestionsModel
     {
-        public IList<Suggestion> Suggestions { get; set; }
+        public List<Suggestion> Suggestions { get; set; }
     }
 
     public partial class Suggestion
