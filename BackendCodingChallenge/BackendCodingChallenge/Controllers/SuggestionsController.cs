@@ -13,31 +13,36 @@ namespace BackendCodingChallenge.Controllers
 {
     [Produces("application/json")]
     [Route("/suggestions")]
-    public class SuggestionController : Controller
+    public class SuggestionsController : Controller
     {
         [HttpGet]
-        public IActionResult Get(string q, string latitude, string longitude)
+        public IActionResult Get([FromQuery]QueryParametersModel parameters)
         {
-            var suggestionModel = new SuggestionModel();
+            var suggestionModel = new SuggestionsModel();
 
-            if (string.IsNullOrWhiteSpace(latitude))
+            if (!QueryParametersModelIsValid(parameters))
             {
-                latitude = "0";
+                return StatusCode(StatusCodes.Status400BadRequest, "Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.");
             }
 
-            if (string.IsNullOrWhiteSpace(longitude))
-            {
-                longitude = "0";
-            }
-
-            if (!double.TryParse(latitude, out _) || !double.TryParse(longitude, out _))
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, "Longitude and Latitude values must be numbers.");
-            }
-
-            suggestionModel.Suggestions = GetSuggestions(q, double.Parse(latitude), double.Parse(longitude));
+            suggestionModel.Suggestions = GetSuggestions(parameters);
 
             return Ok(suggestionModel);
+        }
+
+        /// <summary>
+        /// Validate query parameters
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        private bool QueryParametersModelIsValid(QueryParametersModel parameters)
+        {
+            parameters.Latitude ??= "0";
+            parameters.Longitude ??= "0";
+
+            return !string.IsNullOrWhiteSpace(parameters.Q)
+                && double.TryParse(parameters.Latitude, out _)
+                && double.TryParse(parameters.Latitude, out _);
         }
 
         /// <summary>
@@ -47,22 +52,22 @@ namespace BackendCodingChallenge.Controllers
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        private List<Suggestion> GetSuggestions(string req, double reqLatitude, double reqLongitude)
+        private List<Suggestion> GetSuggestions(QueryParametersModel parameters)
         {
             var suggestionList = new List<Suggestion>();
 
-            if (string.IsNullOrWhiteSpace(req))
+            if (string.IsNullOrWhiteSpace(parameters.Q))
             {
                 return suggestionList;
             }
 
-            var geonameItems = GetGeonames(req);
+            var geonameItems = GetGeonames(parameters.Q);
 
             foreach (var city in geonameItems.Geonames)
             {
                 string[] cityNameArray = { city.Name, city.AdministrationCodes.ProvinceStateCode, city.CountryCode };
-                var cityCoordinateDistance = GetCoordinateDistance(reqLatitude, reqLongitude, double.Parse(city.Latitude), double.Parse(city.Longitude));
-                var cityNameLevenshteinDistance = LevenshteinDistance(req, city.Name);
+                var cityCoordinateDistance = GetCoordinateDistance(double.Parse(parameters.Latitude), double.Parse(parameters.Longitude), double.Parse(city.Latitude), double.Parse(city.Longitude));
+                var cityNameLevenshteinDistance = LevenshteinDistance(parameters.Q, city.Name);
 
                 suggestionList.Add(new Suggestion
                 {
@@ -81,13 +86,13 @@ namespace BackendCodingChallenge.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        private GeonameModel GetGeonames(string req)
+        private GeonamesModel GetGeonames(string req)
         {
-            var geonameItems = new GeonameModel();
             var geonamesRequestUri = string.Format(@"http://api.geonames.org/searchJSON?name_startsWith={0}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma", req);
             var geonamesWebReq = (HttpWebRequest)WebRequest.Create(geonamesRequestUri);
 
             geonamesWebReq.Method = "GET";
+            GeonamesModel geonameItems;
 
             try
             {
@@ -100,11 +105,11 @@ namespace BackendCodingChallenge.Controllers
                     jsonString = reader.ReadToEnd();
                 }
 
-                geonameItems = JsonConvert.DeserializeObject<GeonameModel>(jsonString);
+                geonameItems = JsonConvert.DeserializeObject<GeonamesModel>(jsonString);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception("An error occured when calling api/geonames, exception detail:" + ex);
             }
 
             return geonameItems;
@@ -118,7 +123,7 @@ namespace BackendCodingChallenge.Controllers
         /// <returns></returns>
         private double GetScore(double coordinateDistance, double LevenshteinDistance)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         /// <summary>

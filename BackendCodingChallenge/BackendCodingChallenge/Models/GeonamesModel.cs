@@ -2,7 +2,7 @@
 
 namespace BackendCodingChallenge.Models
 {
-    public partial class GeonameModel
+    public partial class GeonamesModel
     {
         [JsonProperty("totalResultsCount")]
         public int TotalResultsCount { get; set; }

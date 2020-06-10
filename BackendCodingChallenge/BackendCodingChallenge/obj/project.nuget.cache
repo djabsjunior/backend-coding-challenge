@@ -1,10 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "LTzgpGJMdQ/ahUF3DsVR/OaBxjnOHDOglTcQtZ48JV3HtsVkT62to2lohksuIjZV2mQv6c3s44NTEXUJ+Xas9g==",
+  "dgSpecHash": "ynHMYRqgvqjL2+wP0CDTgWM4qF2BxKRe/+x/NY2q9v6Ira5VK21gMeq77lvyV7SxWnxduWiat2A2fckZKu3imQ==",
   "success": true,
   "projectFilePath": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/BackendCodingChallenge.csproj",
   "expectedPackageFiles": [
+    "/Users/JB/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/JB/.nuget/packages/microsoft.openapi/1.1.4/microsoft.openapi.1.1.4.nupkg.sha512",
     "/Users/JB/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/Users/JB/.nuget/packages/swashbuckle.aspnetcore/5.4.1/swashbuckle.aspnetcore.5.4.1.nupkg.sha512",
+    "/Users/JB/.nuget/packages/swashbuckle.aspnetcore.swagger/5.4.1/swashbuckle.aspnetcore.swagger.5.4.1.nupkg.sha512",
+    "/Users/JB/.nuget/packages/swashbuckle.aspnetcore.swaggergen/5.4.1/swashbuckle.aspnetcore.swaggergen.5.4.1.nupkg.sha512",
+    "/Users/JB/.nuget/packages/swashbuckle.aspnetcore.swaggerui/5.4.1/swashbuckle.aspnetcore.swaggerui.5.4.1.nupkg.sha512",
     "/Users/JB/.nuget/packages/system.device.location.portable/1.0.0/system.device.location.portable.1.0.0.nupkg.sha512"
   ],
   "logs": [

@@ -20,3 +20,8 @@
 /Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/obj/Debug/netcoreapp3.1/BackendCodingChallenge.csproj.CopyComplete
 /Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
 /Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/System.Device.Portable.dll
+/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/Microsoft.OpenApi.dll
+/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.Swagger.dll
+/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/obj/Debug/netcoreapp3.1/BackendCodingChallenge.MvcApplicationPartsAssemblyInfo.cs

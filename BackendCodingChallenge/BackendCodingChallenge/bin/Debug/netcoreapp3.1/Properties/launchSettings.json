@@ -19,7 +19,7 @@
     },
     "BackendCodingChallenge": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "suggestions",
       "applicationUrl": "http://localhost:5004",
       "environmentVariables": {
