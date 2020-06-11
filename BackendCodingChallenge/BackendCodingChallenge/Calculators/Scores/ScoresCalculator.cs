@@ -90,7 +90,7 @@ namespace BackendCodingChallenge.Calculators.Scores
                         ? score 
                         : Math.Exp(-(distance / 12)) 
                     : geoCoordInvolved 
-                        ? 0.5 - Math.Exp(-(distance / 4))
+                        ? score - Math.Exp(-(distance / 4))
                         : score;
 
                 scores.Add(new KeyValuePair<int, double>(cityId, !geoCoordInvolved ? Math.Round(score, 1) : score));
