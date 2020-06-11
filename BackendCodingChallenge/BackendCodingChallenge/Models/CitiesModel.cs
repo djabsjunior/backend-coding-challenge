@@ -9,7 +9,7 @@ namespace BackendCodingChallenge.Models
         public int TotalResultsCount { get; set; }
 
         [JsonProperty("geonames")]
-        public IList<City> Cities { get; set; }
+        public List<City> Cities { get; set; }
     }
 
     public partial class City

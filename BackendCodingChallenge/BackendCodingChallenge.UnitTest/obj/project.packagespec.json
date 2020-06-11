@@ -1,0 +1,74 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge.UnitTest/BackendCodingChallenge.UnitTest.csproj",
+    "projectName": "BackendCodingChallenge.UnitTest",
+    "projectPath": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge.UnitTest/BackendCodingChallenge.UnitTest.csproj",
+    "outputPath": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge.UnitTest/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp3.1"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "projectReferences": {
+          "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/BackendCodingChallenge.csproj": {
+            "projectPath": "/Users/JB/Projects/backend-coding-challenge/BackendCodingChallenge/BackendCodingChallenge/BackendCodingChallenge.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp3.1": {
+      "dependencies": {
+        "MSTest.TestAdapter": {
+          "target": "Package",
+          "version": "[2.1.0, )"
+        },
+        "MSTest.TestFramework": {
+          "target": "Package",
+          "version": "[2.1.0, )"
+        },
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "[16.5.0, )"
+        },
+        "coverlet.collector": {
+          "target": "Package",
+          "version": "[1.2.0, )"
+        }
+      },
+      "imports": [
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
+      ],
+      "assetTargetFallback": true,
+      "warn": true,
+      "frameworkReferences": {
+        "Microsoft.AspNetCore.App": {
+          "privateAssets": "none"
+        },
+        "Microsoft.NETCore.App": {
+          "privateAssets": "all"
+        }
+      },
+      "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+    }
+  }
+}

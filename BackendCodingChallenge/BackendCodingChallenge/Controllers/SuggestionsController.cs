@@ -29,7 +29,7 @@ namespace BackendCodingChallenge.Controllers
 
             if (!_suggestionsParameters.IsValid(parameters))
             {
-                return StatusCode(StatusCodes.Status400BadRequest, "Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.");
+                return StatusCode(StatusCodes.Status400BadRequest, "Bad Request: Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.");
             }
 
             suggestionModel.Suggestions = _suggestionsData.GetSuggestionsData(parameters);

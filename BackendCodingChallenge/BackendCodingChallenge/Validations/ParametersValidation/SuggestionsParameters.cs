@@ -6,7 +6,7 @@ namespace BackendCodingChallenge.Validations.ParametersValidation
     {
         public SuggestionsParameters()
         {
-
+            //Use for unit test
         }
 
         public bool IsValid(SuggestionsParametersModel parameters)

@@ -24,7 +24,6 @@ namespace BackendCodingChallenge.Calculators.Scores
         {
             var citiesGeoCoordDistances = citiesModel.Cities.Select(city => new KeyValuePair<int, double>(city.CityId, _coordinateDistanceCalculator.ComputeDistance(double.Parse(parametersModel.Latitude), double.Parse(parametersModel.Longitude), double.Parse(city.Latitude), double.Parse(city.Longitude)))).OrderBy(c => c.Value).ToList();
             var citiesNamesDistances = citiesModel.Cities.Select(city => new KeyValuePair<int, double>(city.CityId, _levenshteinDistanceCalculator.ComputeDistance(parametersModel.Q, city.Name))).OrderBy(c => c.Value).ToList();
-            var citiesScores = new List<KeyValuePair<int, double>>();
 
             if (string.Equals(parametersModel.Latitude, "0") && string.Equals(parametersModel.Longitude, "0"))
             {
@@ -34,12 +33,7 @@ namespace BackendCodingChallenge.Calculators.Scores
             var coordScores = ComputeScores(citiesGeoCoordDistances, 1000, 2);
             var namesScores = ComputeScores(citiesNamesDistances, 15, 2);
 
-            foreach (var item in coordScores)
-            {
-                citiesScores.Add(new KeyValuePair<int, double>(item.Key, Math.Round(item.Value + namesScores.FirstOrDefault(n => n.Key == item.Key).Value, 1)));
-            }
-
-            return citiesScores;
+            return coordScores.Select(item => new KeyValuePair<int, double>(item.Key, Math.Round(item.Value + namesScores.FirstOrDefault(n => n.Key == item.Key).Value, 1))).ToList();
         }
 
 

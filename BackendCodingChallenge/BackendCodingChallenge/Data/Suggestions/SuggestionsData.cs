@@ -20,6 +20,11 @@ namespace BackendCodingChallenge.Data.Suggestions
             _scoresCalculator = scoresCalculator;
         }
 
+        public SuggestionsData()
+        {
+
+        }
+
         public List<Suggestion> GetSuggestionsData(SuggestionsParametersModel parameters)
         {
             var suggestionList = new List<Suggestion>();

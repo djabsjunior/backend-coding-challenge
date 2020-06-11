@@ -10,7 +10,7 @@ namespace BackendCodingChallenge.Data.GeonamesAPI
     {
         public CitiesModel GetCitiesData(string req)
         {
-            var geonamesRequestUri = string.Format(@"http://api.geonames.org/searchJSON?name_startsWith={0}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma", req);
+            var geonamesRequestUri = $@"http://api.geonames.org/searchJSON?name_startsWith={req}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma";
             var geonamesWebReq = (HttpWebRequest)WebRequest.Create(geonamesRequestUri);
 
             geonamesWebReq.Method = "GET";
@@ -18,7 +18,7 @@ namespace BackendCodingChallenge.Data.GeonamesAPI
 
             try
             {
-                HttpWebResponse geonamesWebResp = (HttpWebResponse)geonamesWebReq.GetResponse();
+                var geonamesWebResp = (HttpWebResponse)geonamesWebReq.GetResponse();
                 string jsonString;
 
                 using (var stream = geonamesWebResp.GetResponseStream())
