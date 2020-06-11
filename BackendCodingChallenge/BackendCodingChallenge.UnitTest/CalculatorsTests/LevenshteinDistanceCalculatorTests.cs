@@ -1,9 +1,7 @@
-using System;
-using BackendCodingChallenge.Calculators.CoordinateDistance;
 using BackendCodingChallenge.Calculators.LevenshteinDistance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackendCodingChallenge.UnitTest
+namespace BackendCodingChallenge.UnitTest.CalculatorsTests
 {
     [TestClass]
     public class LevenshteinDistanceCalculatorTests

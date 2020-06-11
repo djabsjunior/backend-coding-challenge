@@ -5,7 +5,7 @@ using BackendCodingChallenge.Calculators.Scores;
 using BackendCodingChallenge.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackendCodingChallenge.UnitTest
+namespace BackendCodingChallenge.UnitTest.CalculatorsTests
 {
     [TestClass]
     public class ScoresCalculatorTests
@@ -63,7 +63,7 @@ namespace BackendCodingChallenge.UnitTest
             };
             var citiesScores = scoresCalculator.GetCitiesScores(cityModel, suggestionsParametersModel);
             var expectedResults = new List<KeyValuePair<int, double>>
-                { new KeyValuePair<int, double>(cityModel.Cities[0].CityId, 0.8) };
+                { new KeyValuePair<int, double>(cityModel.Cities[0].CityId, 0.5) };
             
             CollectionAssert.AreEqual(expectedResults, citiesScores);    
         }

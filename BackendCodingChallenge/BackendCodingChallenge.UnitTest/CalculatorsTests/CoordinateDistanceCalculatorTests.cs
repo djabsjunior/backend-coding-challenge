@@ -2,7 +2,7 @@ using System;
 using BackendCodingChallenge.Calculators.CoordinateDistance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackendCodingChallenge.UnitTest
+namespace BackendCodingChallenge.UnitTest.CalculatorsTests
 {
     [TestClass]
     public class CoordinateDistanceCalculatorTests

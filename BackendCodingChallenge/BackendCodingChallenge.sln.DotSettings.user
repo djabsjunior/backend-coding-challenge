@@ -3,7 +3,5 @@
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2154d4a5_002D1771_002D412d_002Db8d0_002D2b1daa471f90/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="False" ContinuousTestingMode="0" FrameworkVersion="{x:Null}" IsLocked="False" Name="GetSuggestionsData_NullParameters_ReturnEmptyListOfSuggestions" PlatformMonoPreference="{x:Null}" PlatformType="{x:Null}" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;MSTest::DDE3D1C4-424B-46B8-A20C-8151E30035A9::.NETCoreApp,Version=v3.1::BackendCodingChallenge.UnitTest.SuggestionsDataTests.GetSuggestionsData_NullParameters_ReturnEmptyListOfSuggestions&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

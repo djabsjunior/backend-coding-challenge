@@ -2,7 +2,7 @@ using BackendCodingChallenge.Models;
 using BackendCodingChallenge.Validations.ParametersValidation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackendCodingChallenge.UnitTest
+namespace BackendCodingChallenge.UnitTest.ValidationsTests
 {
     [TestClass]
     public class SuggestionsParametersTest

@@ -3,7 +3,7 @@ using BackendCodingChallenge.Data.Suggestions;
 using BackendCodingChallenge.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackendCodingChallenge.UnitTest
+namespace BackendCodingChallenge.UnitTest.DataTests
 {
     [TestClass]    
     public class SuggestionsDataTests
