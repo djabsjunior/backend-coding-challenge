@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace BackendCodingChallenge.Data.GeonamesAPI
 {
-    public class GeonamesAPI : IGeonamesAPI
+    public class GeonamesApi : IGeonamesApi
     {
         public CitiesModel GetCitiesData(string req)
         {
@@ -31,7 +31,7 @@ namespace BackendCodingChallenge.Data.GeonamesAPI
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occured when calling api/geonames, exception detail:" + ex);
+                throw new Exception("An error occured when calling the Geonames API, exception detail: " + ex);
             }
 
             return cities;

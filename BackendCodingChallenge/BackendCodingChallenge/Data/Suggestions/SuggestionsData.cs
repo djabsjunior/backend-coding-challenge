@@ -9,12 +9,12 @@ namespace BackendCodingChallenge.Data.Suggestions
 {
     public class SuggestionsData : ISuggestionsData
     {
-        private readonly IGeonamesAPI _geonamesAPI;
+        private readonly IGeonamesApi _geonamesAPI;
 
         private readonly IScoresCalculator _scoresCalculator;
 
 
-        public SuggestionsData(IGeonamesAPI geonamesAPI, IScoresCalculator scoresCalculator)
+        public SuggestionsData(IGeonamesApi geonamesAPI, IScoresCalculator scoresCalculator)
         {
             _geonamesAPI = geonamesAPI;
             _scoresCalculator = scoresCalculator;

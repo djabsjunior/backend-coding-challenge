@@ -2,7 +2,7 @@
 
 namespace BackendCodingChallenge.Data.GeonamesAPI
 {
-    public interface IGeonamesAPI
+    public interface IGeonamesApi
     {
         /// <summary>
         /// Get all Cities' starting with 'req' data from api/geonames.

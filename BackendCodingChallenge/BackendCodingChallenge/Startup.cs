@@ -34,7 +34,7 @@ namespace BackendCodingChallenge
         {
             services.AddControllers();
             services.AddScoped<ICoordinateDistanceCalculator, CoordinateDistanceCalculator>();
-            services.AddScoped<IGeonamesAPI, GeonamesAPI>();
+            services.AddScoped<IGeonamesApi, GeonamesApi>();
             services.AddScoped<ILevenshteinDistanceCalculator, LevenshteinDistanceCalculator>();
             services.AddScoped<IScoresCalculator, ScoresCalculator>();
             services.AddScoped<ISuggestionsData, SuggestionsData>();
