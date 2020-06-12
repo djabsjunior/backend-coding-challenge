@@ -27,7 +27,7 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 
 **HTTP Status Code:**
 
-- The client application will receive an HTTP 400 - Bad request response with the message `Bad Request: Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.` when the querystrings parameters have bad formats.
+- The client application will receive an HTTP 400 - Bad request response with the message `Error 400: 'q' must be a string, 'longitude' and 'latitude' values must be decimal. Use a dot instead of comma for decimal's separator.` when the querystrings parameters have bad formats.
 
 - The client application will receive an HTTP 200 - Ok when the request was fulfilled.
 
