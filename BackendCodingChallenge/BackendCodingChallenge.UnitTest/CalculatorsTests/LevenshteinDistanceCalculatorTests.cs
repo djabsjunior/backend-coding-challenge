@@ -16,7 +16,7 @@ namespace BackendCodingChallenge.UnitTest.CalculatorsTests
         }
         
         [TestMethod]
-        public void ComputeDistance_CanadianCitiesMontrealOttawa_Return165()
+        public void ComputeDistance_DifferentCityNames_Return8()
         {
             //Montreal and Mont-Tremblant
             var levenshteinDistanceCalculator = new LevenshteinDistanceCalculator();
