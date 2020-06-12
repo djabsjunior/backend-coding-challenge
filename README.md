@@ -10,7 +10,7 @@ The App is build with ASP .Net Core 3.1.
 
 The REST API endpoint provides auto-complete suggestions for large cities.
 
-- The app is deployed on Microsoft Azure exposed at `https://suggestionsapicoveobackendchallenge.azurewebsites.net`. You can test it via Swagger by adding the extension `/swagger` to the homepage url.
+- The app is deployed on Microsoft Azure at `https://suggestionsapicoveobackendchallenge.azurewebsites.net` and exposed at `/suggestions`. You can test it via Swagger by adding the extension `/swagger` to the homepage url.
 - The partial (or complete) search term is passed as a querystring parameter `q`.
 - The optionals querystring parameters `latitude` and `longitude` help improve the relative scores.
 - The cities data are collected from the Geonames API at `http://api.geonames.org/searchJSON?name_startsWith={q}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma` where `q` is the partial (or complete) search term (see second point).
