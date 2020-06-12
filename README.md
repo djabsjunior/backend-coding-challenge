@@ -1,5 +1,7 @@
 # Coveo Backend Coding Challenge
 
+Submission for the Coveo Backend Coding Challenge
+
 # SUGGESTIONS REST API
 
 
@@ -7,15 +9,15 @@
 
 The REST API endpoint provides auto-complete suggestions for large cities.
 
-- The endpoint is exposed at `https://suggestionsapicoveobackendchallenge.azurewebsites.net/suggestions/suggestions` (Microsoft Azure).
-- The partial (or complete) search term is passed as a querystring parameter `q`
+- The app is deployed on Microsoft Azure exposed at `https://suggestionsapicoveobackendchallenge.azurewebsites.net`. You can test it via Swagger by adding the extension `/swagger` to the homepage url.
+- The partial (or complete) search term is passed as a querystring parameter `q`.
 - The optionals querystring parameters `latitude` and `longitude` help improve the relative scores.
 - The cities data are collected from the Geonames API at `http://api.geonames.org/searchJSON?name_startsWith={q}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma` where `q` is the partial (or complete) search term (see second point).
-- The endpoint returns a JSON response with an array of scored suggested matches
-    - The suggestions are sorted by descending score
-    - Each suggestion has a score between 0 and 1 (inclusive) indicating confidence in the suggestion (1 is most confident)
-    - Each suggestion has a name which can be used to disambiguate between similarly named locations
-    - Each suggestion has a latitude and longitude
+- The endpoint returns a JSON response with an array of scored suggested matches:
+    - The suggestions are sorted by descending score.
+    - Each suggestion has a score between 0 and 1 (inclusive) indicating confidence in the suggestion (1 is most confident).
+    - Each suggestion has a name which can be used to disambiguate between similarly named locations.
+    - Each suggestion has a latitude and longitude.
 
 
 
@@ -26,7 +28,7 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 
 - The client application will receive an HTTP 400 - Bad request response with the message `Bad Request: Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.` when the querystrings parameters have bad formats.
 
-- The client application will receive an HTTP 200 - Ok when the request was fulfilled
+- The client application will receive an HTTP 200 - Ok when the request was fulfilled.
 
 
 **Near match Example:**
