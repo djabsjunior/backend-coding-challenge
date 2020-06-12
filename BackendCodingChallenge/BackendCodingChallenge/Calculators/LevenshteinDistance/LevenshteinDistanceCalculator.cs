@@ -7,15 +7,17 @@ namespace BackendCodingChallenge.Calculators.LevenshteinDistance
         {
             var reqLength = req.Length;
             var cityNameLength = cityName.Length;
-            int[,] d = new int[reqLength + 1, cityNameLength + 1];
+            var d = new int[reqLength + 1, cityNameLength + 1];
 
             // Step 1
-            if (reqLength == 0 || cityNameLength == 0)
+            // returns the maximum length of both names if one is empty
+            if (Math.Min(reqLength, cityNameLength) == 0)
             {
-                return Math.Min(cityNameLength, reqLength);
+                return Math.Max(cityNameLength, reqLength);
             }
 
             // Step 2
+            // 2D arrays initialization of same length as both string names
             for (var i = 0; i <= reqLength; d[i, 0] = i++)
             {
             }
@@ -31,16 +33,24 @@ namespace BackendCodingChallenge.Calculators.LevenshteinDistance
                 for (var j = 1; j <= cityNameLength; j++)
                 {
                     // Step 5
+                    // character substitution cost: set to 0 when a a change is needed and 1 otherwise.
                     var cost = (cityName[j - 1] == req[i - 1]) ? 0 : 1;
 
                     // Step 6
                     d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                        d[i - 1, j - 1] + cost);
+                        Math.Min(
+                            //character deletion from request string
+                            d[i - 1, j] + 1,
+                            //new character insertion in city name
+                            d[i, j - 1] + 1    
+                        ),
+                        //substitution
+                        d[i - 1, j - 1] + cost 
+                        );
                 }
             }
             // Step 7
-            return d[reqLength, cityNameLength];
+            return d[reqLength, cityNameLength]; //the last matrix position contains the distance
         }
     }
 }
