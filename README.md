@@ -22,16 +22,18 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 ## Sample responses
 
 
-## HTTP Status Code
+**HTTP Status Code:**
 
 - The client application will receive an HTTP 400 - Bad request response with the message `Bad Request: Invalid parameters. 'q' must be a string, 'longitude' and 'latitude' values must be numbers.` when the querystrings parameters have bad formats.
 
 - The client application will receive an HTTP 200 - Ok when the request was fulfilled
 
 
-**Near match**
+**Near match Example:**
 
     GET https://suggestionsapicoveobackendchallenge.azurewebsites.net/suggestions?q=Londo&latitude=43.70011&longitude=-79.4163
+
+**Expected Response:**
 
 ```json
 {
@@ -70,9 +72,11 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 }
 ```
 
-**No match**
+**No match Example**
 
     GET https://suggestionsapicoveobackendchallenge.azurewebsites.net/suggestions?q=SomeRandomCityInTheMiddleOfNowhere
+
+**Expected Response:**
 
 ```json
 {
