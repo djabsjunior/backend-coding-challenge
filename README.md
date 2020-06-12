@@ -3,7 +3,8 @@
 Submission for the Coveo Backend Coding Challenge
 
 # SUGGESTIONS REST API
-
+ 
+The App is build with ASP .Net Core 3.1.
 
 ## Description
 
