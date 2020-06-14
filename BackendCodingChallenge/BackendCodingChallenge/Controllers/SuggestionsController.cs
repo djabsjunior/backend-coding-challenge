@@ -1,5 +1,5 @@
-﻿using BackendCodingChallenge.Data.Suggestions;
-using BackendCodingChallenge.Models;
+﻿using BackendCodingChallenge.Models;
+using BackendCodingChallenge.Providers.Suggestions;
 using BackendCodingChallenge.Validations.ParametersValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +11,14 @@ namespace BackendCodingChallenge.Controllers
     [ApiController]
     public class SuggestionsController : Controller
     {
-        private readonly ISuggestionsData _suggestionsData;
+        private readonly ISuggestionsDataProvider _suggestionsDataProvider;
 
         private readonly ISuggestionsParameters _suggestionsParameters;
 
 
-        public SuggestionsController(ISuggestionsData suggestionsData, ISuggestionsParameters suggestionsParameters)
+        public SuggestionsController(ISuggestionsDataProvider suggestionsDataProvider, ISuggestionsParameters suggestionsParameters)
         {
-            _suggestionsData = suggestionsData;
+            _suggestionsDataProvider = suggestionsDataProvider;
             _suggestionsParameters = suggestionsParameters;
         }
 
@@ -30,10 +30,10 @@ namespace BackendCodingChallenge.Controllers
             if (!_suggestionsParameters.IsValid(parameters))
             {
                 return StatusCode(StatusCodes.Status400BadRequest,
-                    "Error 400: 'q' must be a string, 'longitude' and 'latitude' values must be decimal. Use a dot instead of comma for decimal's separator.");
+                    "Error 400: 'q' must be a string, 'longitude' and 'latitude' values must be decimals. Use a dot instead of comma for decimal's separator.");
             }
 
-            suggestionModel.Suggestions = _suggestionsData.GetSuggestionsData(parameters);
+            suggestionModel.Suggestions = _suggestionsDataProvider.GetData(parameters);
 
             return Ok(suggestionModel);
         }

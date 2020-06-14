@@ -4,12 +4,12 @@ namespace BackendCodingChallenge.Calculators.CoordinateDistance
 {
     public class CoordinateDistanceCalculator : ICoordinateDistanceCalculator
     {
-        public double ComputeDistance(double reqLatitude, double reqLongitude, double cityLatitude, double cityLongitude)
+        public decimal ComputeDistance(decimal reqLatitude, decimal reqLongitude, decimal cityLatitude, decimal cityLongitude)
         {
-            var requestCoordinate = new GeoCoordinate(reqLatitude, reqLongitude);
-            var cityCoordinate = new GeoCoordinate(cityLatitude, cityLongitude);
+            var requestCoordinate = new GeoCoordinate(decimal.ToDouble(reqLatitude), decimal.ToDouble(reqLongitude));
+            var cityCoordinate = new GeoCoordinate(decimal.ToDouble(cityLatitude), decimal.ToDouble(cityLongitude));
 
-            return requestCoordinate.GetDistanceTo(cityCoordinate) / 1000;
+            return (decimal)requestCoordinate.GetDistanceTo(cityCoordinate) / 1000;
         }
     }
 }

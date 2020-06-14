@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using BackendCodingChallenge.Calculators.Scores;
 using BackendCodingChallenge.Data.GeonamesAPI;
 using BackendCodingChallenge.Models;
 
-namespace BackendCodingChallenge.Data.Suggestions
+namespace BackendCodingChallenge.Providers.Suggestions
 {
-    public class SuggestionsData : ISuggestionsData
+    public class SuggestionsDataProvider : ISuggestionsDataProvider
     {
-        private readonly IGeonamesApi _geonamesAPI;
+        private readonly IGeonamesApi _geonamesApi;
 
         private readonly IScoresCalculator _scoresCalculator;
 
 
-        public SuggestionsData(IGeonamesApi geonamesAPI, IScoresCalculator scoresCalculator)
+        public SuggestionsDataProvider(IGeonamesApi geonamesApi, IScoresCalculator scoresCalculator)
         {
-            _geonamesAPI = geonamesAPI;
+            _geonamesApi = geonamesApi;
             _scoresCalculator = scoresCalculator;
         }
 
-        public SuggestionsData()
+        public SuggestionsDataProvider()
         {
-
+            //for unit tests
         }
 
-        public List<Suggestion> GetSuggestionsData(SuggestionsParametersModel parameters)
+        public List<Suggestion> GetData(SuggestionsParametersModel parameters)
         {
             var suggestionList = new List<Suggestion>();
 
@@ -34,19 +35,21 @@ namespace BackendCodingChallenge.Data.Suggestions
                 return suggestionList;
             }
 
-            var citiesData = _geonamesAPI.GetCitiesData(parameters.Q);
+            var citiesData = _geonamesApi.GetCitiesData(parameters.Q);
             var citiesScores = _scoresCalculator.GetCitiesScores(citiesData, parameters);
 
-            foreach (var city in citiesData.Cities.Where(c => citiesScores.Exists(cs => cs.Key == c.CityId)))
+            foreach (var city in citiesData.Cities)
             {
                 string[] cityNameArray = { city.Name, city.AdministrationCodes.ProvinceStateCode, city.CountryCode };
-
+                var cityScore = Convert.ToDecimal(Math.Round(citiesScores.FirstOrDefault(cs => cs.Key == city.CityId).Value, 1)
+                    .ToString("0.#"));
+                
                 suggestionList.Add(new Suggestion
                 {
                     Latitude = city.Latitude,
                     Longitude = city.Longitude,
                     Name = string.Join(", ", cityNameArray),
-                    Score = citiesScores.FirstOrDefault(cs => cs.Key == city.CityId).Value
+                    Score = cityScore
                 });
             }
 

@@ -10,6 +10,6 @@
         /// <param name="cityLatitude"></param>
         /// <param name="cityLongitude"></param>
         /// <returns></returns>
-        public double ComputeDistance(double reqLatitude, double reqLongitude, double cityLatitude, double cityLongitude);
+        public decimal ComputeDistance(decimal reqLatitude, decimal reqLongitude, decimal cityLatitude, decimal cityLongitude);
     }
 }

@@ -6,7 +6,7 @@ using BackendCodingChallenge.Calculators.CoordinateDistance;
 using BackendCodingChallenge.Calculators.LevenshteinDistance;
 using BackendCodingChallenge.Calculators.Scores;
 using BackendCodingChallenge.Data.GeonamesAPI;
-using BackendCodingChallenge.Data.Suggestions;
+using BackendCodingChallenge.Providers.Suggestions;
 using BackendCodingChallenge.Validations.ParametersValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,7 +37,7 @@ namespace BackendCodingChallenge
             services.AddScoped<IGeonamesApi, GeonamesApi>();
             services.AddScoped<ILevenshteinDistanceCalculator, LevenshteinDistanceCalculator>();
             services.AddScoped<IScoresCalculator, ScoresCalculator>();
-            services.AddScoped<ISuggestionsData, SuggestionsData>();
+            services.AddScoped<ISuggestionsDataProvider, SuggestionsDataProvider>();
             services.AddScoped<ISuggestionsParameters, SuggestionsParameters>();
             services.AddSwaggerGen(sg => sg.SwaggerDoc("v1", new OpenApiInfo() { Title = "SuggestionsAPI", Version = "v1" }));
         }

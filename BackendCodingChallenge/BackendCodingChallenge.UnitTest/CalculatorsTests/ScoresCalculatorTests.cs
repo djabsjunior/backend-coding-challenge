@@ -62,13 +62,13 @@ namespace BackendCodingChallenge.UnitTest.CalculatorsTests
                 Longitude = "-79.4163"
             };
             var citiesScores = scoresCalculator.GetCitiesScores(cityModel, suggestionsParametersModel);
-            var expectedResults = new List<KeyValuePair<int, double>>
-                { new KeyValuePair<int, double>(cityModel.Cities[0].CityId, 0.5) };
+            var expectedResults = new List<KeyValuePair<int, decimal>>
+                { new KeyValuePair<int, decimal>(cityModel.Cities[0].CityId, (decimal) 0.5) };
             
             CollectionAssert.AreEqual(expectedResults, citiesScores);    
         }
         
-                [TestMethod]
+        [TestMethod]
         public void GetCitiesScores_GivenValuesOnlyForQParameter()
         {
             var scoresCalculator = new ScoresCalculator( new CoordinateDistanceCalculator(), new LevenshteinDistanceCalculator());
@@ -106,8 +106,8 @@ namespace BackendCodingChallenge.UnitTest.CalculatorsTests
                 Longitude = "0" //Latitude  is set to 0 when null or white space
             };
             var citiesScores = scoresCalculator.GetCitiesScores(cityModel, suggestionsParametersModel);
-            var expectedResults = new List<KeyValuePair<int, double>>
-                { new KeyValuePair<int, double>(cityModel.Cities[0].CityId, 0.9) };
+            var expectedResults = new List<KeyValuePair<int, decimal>>
+                { new KeyValuePair<int, decimal>(cityModel.Cities[0].CityId, (decimal) 0.920044414629323) };
             
             CollectionAssert.AreEqual(expectedResults, citiesScores);    
         }

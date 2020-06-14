@@ -11,11 +11,11 @@
     <Folder Include="Calculators\CoordinateDistance\" />
     <Folder Include="Calculators\LevenshteinDistance\" />
     <Folder Include="Calculators\Scores\" />
+    <Folder Include="Providers" />
     <Folder Include="Validations\" />
     <Folder Include="Validations\ParametersValidation\" />
     <Folder Include="Data\" />
     <Folder Include="Data\GeonamesAPI\" />
-    <Folder Include="Data\Suggestions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
