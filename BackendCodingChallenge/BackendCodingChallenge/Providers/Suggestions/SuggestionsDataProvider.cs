@@ -41,8 +41,7 @@ namespace BackendCodingChallenge.Providers.Suggestions
             foreach (var city in citiesData.Cities)
             {
                 string[] cityNameArray = { city.Name, city.AdministrationCodes.ProvinceStateCode, city.CountryCode };
-                var cityScore = Convert.ToDecimal(Math.Round(citiesScores.FirstOrDefault(cs => cs.Key == city.CityId).Value, 1)
-                    .ToString("0.#"));
+                var cityScore = Math.Round(citiesScores.FirstOrDefault(cs => cs.Key == city.CityId).Value, 1);
                 
                 suggestionList.Add(new Suggestion
                 {
