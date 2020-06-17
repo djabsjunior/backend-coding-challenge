@@ -38,7 +38,7 @@ namespace BackendCodingChallenge.Calculators.LevenshteinDistance
                 for (var j = 1; j <= cityNameLength; j++)
                 {
                     // Step 5
-                    // character substitution cost: set to 0 when a a change is needed and 1 otherwise.
+                    // character substitution cost: set to 0 when no change is needed and 1 otherwise.
                     var cost = (lowerCityName[j - 1] == lowerQName[i - 1]) ? 0 : 1;
 
                     // Step 6
