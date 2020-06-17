@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace BackendCodingChallenge.Models
 {
-    public partial class CitiesModel
+    public class CitiesModel
     {
         [JsonProperty("totalResultsCount")]
         public int TotalResultsCount { get; set; }
@@ -12,7 +12,7 @@ namespace BackendCodingChallenge.Models
         public List<City> Cities { get; set; }
     }
 
-    public partial class City
+    public class City
     {
         [JsonProperty("adminCode1")]
         public string AdministrationCode { get; set; }
@@ -63,7 +63,7 @@ namespace BackendCodingChallenge.Models
         public string FeatureCode { get; set; }
     }
 
-    public partial class AdministrationCodes
+    public class AdministrationCodes
     {
         [JsonProperty("ISO3166_2")]
         public string ProvinceStateCode { get; set; }

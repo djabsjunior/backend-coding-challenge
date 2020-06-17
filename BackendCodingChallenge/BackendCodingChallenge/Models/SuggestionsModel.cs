@@ -2,12 +2,12 @@
 
 namespace BackendCodingChallenge.Models
 {
-    public partial class SuggestionsModel
+    public class SuggestionsModel
     {
         public List<Suggestion> Suggestions { get; set; }
     }
 
-    public partial class Suggestion
+    public class Suggestion
     {
         public string Name { get; set; }
 
