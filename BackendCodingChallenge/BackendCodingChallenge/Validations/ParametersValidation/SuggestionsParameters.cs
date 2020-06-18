@@ -16,7 +16,7 @@ namespace BackendCodingChallenge.Validations.ParametersValidation
 
             return !string.IsNullOrWhiteSpace(parameters.Q)
                    && double.TryParse(parameters.Latitude, out _)
-                   && double.TryParse(parameters.Latitude, out _)
+                   && double.TryParse(parameters.Longitude, out _)
                    && !parameters.Latitude.Contains(",")
                    && !parameters.Longitude.Contains(",");
         }
