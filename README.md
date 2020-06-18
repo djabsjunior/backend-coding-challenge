@@ -13,7 +13,7 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 - The app is deployed on Microsoft Azure at `https://suggestionsapicoveobackendchallenge.azurewebsites.net` and exposed at `/suggestions`. You can test it via Swagger by adding the extension `/swagger` to the homepage url.
 - The partial (or complete) search term is passed as a querystring parameter `q`.
 - The optionals querystring parameters `latitude` and `longitude` help improve the relative scores.
-- The cities data are collected from the Geonames API at `http://api.geonames.org/searchJSON?name_startsWith={q}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma` where `q` is the partial (or complete) search term (see second point).
+- The cities data are collected from the Geonames API at `http://api.geonames.org/searchJSON?name_startsWith={q}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username={username}` where `q` is the search term and `username` the username used to have access to the free version of the geonames API.
 - The endpoint returns a JSON response with an array of scored suggested matches:
     - The suggestions are sorted by descending score.
     - Each suggestion has a score between 0 and 1 (inclusive) indicating confidence in the suggestion (1 is most confident).
@@ -27,7 +27,7 @@ The REST API endpoint provides auto-complete suggestions for large cities.
 
 **HTTP Status Code:**
 
-- The client application will receive an HTTP 400 - Bad request response with the message `Error 400: 'q' must be a string, 'longitude' and 'latitude' values must be decimal. Use a dot instead of comma for decimal's separator.` when the querystrings parameters have bad formats.
+- The client application will receive an HTTP 400 - Bad request response with the message `Error 400: 'q' must be a string, 'longitude' and 'latitude' values must be decimals. Use a dot instead of comma for decimal's separator.` when the querystrings parameters have bad formats.
 
 - The client application will receive an HTTP 200 - Ok when the request was fulfilled.
 
