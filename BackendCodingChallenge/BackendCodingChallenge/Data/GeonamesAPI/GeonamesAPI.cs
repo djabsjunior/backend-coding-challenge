@@ -2,15 +2,19 @@
 using System.IO;
 using System.Net;
 using BackendCodingChallenge.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace BackendCodingChallenge.Data.GeonamesAPI
 {
     public class GeonamesApi : IGeonamesApi
     {
+        public IWebHostEnvironment env { get; set; }
         public CitiesModel GetCitiesData(string req)
         {
-            var geonamesRequestUri = $@"http://api.geonames.org/searchJSON?name_startsWith={req}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username=jbvouma";
+            var username = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("GeonamesApiCredentials")["Username"];
+            var geonamesRequestUri = $@"http://api.geonames.org/searchJSON?name_startsWith={req}&cities=cities5000&maxRows=10&country=US&country=CA&style=MEDIUM&username={username}";
             var geonamesWebReq = (HttpWebRequest)WebRequest.Create(geonamesRequestUri);
 
             geonamesWebReq.Method = "GET";
